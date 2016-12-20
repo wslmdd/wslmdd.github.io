@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link href="./最小二乘的几何意义及投影矩阵/inspector.css" rel="stylesheet" type="text/css">
+<link href="./最小二乘的几何意义及投影矩阵/main.css" rel="stylesheet" type="text/css">
+<link href="./最小二乘的几何意义及投影矩阵/base.css" rel="stylesheet" type="text/css">
+<!--[if IE]>
+<link href="/static/css/ie.css" rel="stylesheet" type="text/css">
+<![endif]-->
+<!-- Le fav and touch icons -->
+<link href="/static/img/ico/apple-touch-icon-ipad3.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="/static/img/ico/apple-touch-icon-iphone4.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="/static/img/ico/apple-touch-icon-ipad.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="/static/img/ico/apple-touch-icon-iphone.png" rel="apple-touch-icon-precomposed">
+<link href="/static/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<title>最小二乘的几何意义及投影矩阵_数据与算法之美_传送门</title>
+<meta content="最小二乘的几何意义及投影矩阵,数据与算法之美,传送门" name="keywords"/>
+<meta content="最小二乘法（又称最小平方法）是一种数学优化技术。它通过最小化误差的平方和寻找数据的最佳函数匹配。" name="description"/>
+<link href="./最小二乘的几何意义及投影矩阵/article_improve.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="./最小二乘的几何意义及投影矩阵/article_pc.css"/> <![endif]-->
+<link href="/static/css/article_pc.css" media="screen and (min-width:1023px)" rel="stylesheet" type="text/css"/>
+<style>ol,ul{list-style-position:inside;}</style>
+</link></link></link></link></link></link></link></link></meta></head>
+<body>
+<div>
+<div>
+<div>
+<div class="header wrapper" id="layout_header">
+<div class="contents">
+<div class="row relative">
+<div class="logo " style="padding: 5px 10px 5px;font-size: 15px;left: -60px;margin-left: -70px;">
+<a alt="传送门" href="/"><img height="40" src="/static/img/logo@2X.png" style="margin-top: 3px" width="60"/></a>
+</div>
+<div>
+<div class=" search full_search instant_results">
+<div class="search_contents navigator">
+<form action="/search" class="search_form" method="get" name="search_form">
+<div class="search_input">
+<div class="input_wrapper ">
+<input class="question_box light" maxlength="250" name="q" placeholder="搜索账号" tabindex="1" type="text">
+</input></div>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div style="float: right;"><a href="http://werank.cn" style="color: #666;padding: 0 8px;" target="_blank">排行榜</a></div>
+<div style="float: right;"><a href="/app" style="color: #666;padding: 0 8px;">客户端</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="home_page contents content">
+<div class="row">
+<div class="main e_col main_col" style="width: 700px; margin-left: -70px;">
+<div class="rich_media" id="js_article">
+<div class="rich_media_inner">
+<div id="page-content">
+<div class="rich_media_area_primary" id="img-content">
+<h2 class="rich_media_title" id="activity-name">
+                        最小二乘的几何意义及投影矩阵 
+                    </h2>
+<div class="rich_media_meta_list">
+<em class="rich_media_meta rich_media_meta_text" id="post-date">2016-12-10</em>
+<em class="rich_media_meta rich_media_meta_text">AndyJee</em>
+<a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="/account/gh_4e8f3d1e412d" id="post-user">数据与算法之美</a>
+<span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">数据与算法之美</span>
+</div>
+<div class="rich_media_content " id="js_content">
+<p style="max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-size: 16px; background-color: rgb(255, 255, 255); line-height: 25.6px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; white-space: pre-wrap; color: rgb(89, 89, 89); font-size: 12px; letter-spacing: 2.912px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;">全世界只有</span><span style="max-width: 100%; font-size: 14px; color: rgb(171, 25, 66); box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;">3.14 %</span></strong></span><span style="max-width: 100%; color: rgb(64, 118, 0); font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"></span></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"></span></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"></span></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"></span></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"><span style="max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"> </span></strong></span><span style="max-width: 100%; white-space: pre-wrap; color: rgb(89, 89, 89); font-size: 12px; letter-spacing: 2.912px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;">的人关注了</span><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"/><span style="max-width: 100%; color: rgb(89, 89, 89); font-size: 12px; letter-spacing: 2.912px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;"></span></p><p style="max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-size: 16px; background-color: rgb(255, 255, 255); line-height: 25.6px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; white-space: pre-wrap; color: rgb(89, 89, 89); font-size: 12px; letter-spacing: 2.912px; box-sizing: border-box !important; word-wrap: break-word !important; overflow-wrap: break-word !important;">数据与算法之美</span></strong></p><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><br/></h2><p><br/></p><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="color: rgb(255, 76, 65); font-size: 14px;">什么是最小二乘？</span></h2><p><span style="color: rgb(255, 76, 65); font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">假设我们手上有n组成对的数据，{(xi,yi):i=1…n}，为了探究y变量与x变量的关系，我们希望用一个多项式来匹配它，可是多项式中的系数怎么确定呢？拿来拼凑肯定是不行的，最小二乘法告诉我们，这个多项式的系数应该让每个点的误差的平方之和最小。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><strong><span style="font-size: 14px;">（百度百科）</span></strong><span style="font-size: 14px;">最小二乘法（又称最小平方法）是一种数学优化技术。它通过最小化误差的平方和寻找数据的最佳函数匹配。利用最小二乘法可以简便地求得未知的数据，并使得这些求得的数据与实际数据之间误差的平方和为最小。最小二乘法还可用于曲线拟合。其他一些优化问题也可通过最小化能量或最大化熵用最小二乘法来表达。</span></p><p><span style="font-size: 14px;"><br/></span></p><p style="text-align:center"><img class="" data-ratio="0.10687022900763359" data-type="png" data-w="786" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6dlNTqtmGHZO1TicTE7J4hLCmKLnITxw8Gj29JibC6UicTWGA9oLtCcNibQ/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="text-align:center"><img class="" data-ratio="0.5299145299145299" data-type="png" data-w="819" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6nPo6wXaodOeZxPBWC27l5ib7xFhmvCWTRER8oibFmpU4w2WasvqTAuqQ/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="text-align:center"><img class="" data-ratio="0.3707865168539326" data-type="png" data-w="623" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6y1iczlA59TK7burCHWPOYibs2dryVLrrfHLkAv5t1kB8BSPhEsAg9zDg/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="text-align:center"><img class="" data-ratio="0.7917329093799682" data-type="png" data-w="629" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6IKR2RUIU8aXt03SNIw685MtwNG2XiaIjJPRK1PGLB7wAGibHBEROeKicg/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><br/></h2><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="color: rgb(255, 76, 65);"><strong><span style="font-size: 14px;">最小二乘的几何意义</span></strong></span></h2><p><strong><span style="font-size: 14px;"><br/></span></strong></p><p><span style="font-size: 14px;">最小二乘的几何意义：最小二乘法中的几何意义是高维空间中的一个向量在低维子空间的投影。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">从上面的定义中，我们很难想象到最小二乘的几何意义，那么我们通过一个简单的例子来推导一下：</span></p><p><span style="font-size: 14px;"><br/></span></p><p style="text-align:center"><img class="" data-ratio="0.8252427184466019" data-type="png" data-w="309" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6rYcL6wEvYX1oI0jgicsT7wianw0nrT8IriaF6gMTicDDvFS9U0Rv6ObT1w/0?wx_fmt=png"/></p><p style="text-align:center"><br/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">我们根据定义中的误差平方之和最小化来拟合直线：</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">每个点的误差表示：<img class="" data-ratio="0.17045454545454544" data-type="png" data-w="176" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ60N3OqkMBlKy3nVFnbs6GCwcpZvUb1NZEia7N6QY0TesVeTktFMk1PHg/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">最小误差的平方和：<img class="" data-ratio="0.15985130111524162" data-type="png" data-w="269" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6jKecbS8xUT2vkrrZc4AJicRkUWs44MyLkTWSvQFc5vHRKFaWgN4TvNA/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">要求解上面的最小化问题，我们可以通过求导的方式得到，最好是转化为矩阵表达形式：AX=b (这里x表示上述的系数a)</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">求得结果为：</p><p style="text-align:center"><img class="" data-ratio="0.2595419847328244" data-type="png" data-w="131" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6BSyFicGaslh4JiaY791wQdqeJmic8DMmfN3Q6QVl2EMA5WzsJk4hOhUVQ/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">如果通过超定方程的解法<img class="" data-ratio="0.28125" data-type="png" data-w="96" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ63IxTqw6eu4HlmyPv3dGqNKYBYRRAUVx1hVCGt6r7jUemjYIGl21H1w/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/>，很容易就可以得到上面结果。</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">先来说说向量表达形式：</p><p style="text-align:center"><img class="" data-ratio="0.46774193548387094" data-type="png" data-w="248" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6PRZQmj7XuZITia9wTkW5x2hzHuAIjicm4t0VicL3l9XCKQ0P8ia0lZgic8A/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">小括号中表示：它是两个向量 [1, ... , 1]T 和 [x1, ... , xn]T 的线性组合，换句话说，它是这两个向量构成的二维子空间（想成一个平面就可以）的任意一点。</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">那么上面式子的几何含义：表示向量 [y1, ... , yn]T（表示空间中的一点） 到这个二维子空间任意一点的距离；（向量的长度）</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">最小化上面式子的平方（向量长度的最小化）的几何含义：寻找在 [1, ... , 1]T 和 [x1, ... , xn]T 构成的二维子空间上的一个点，使得向量 [y1, ... , yn]T 到这个点的距离最小。怎么找这个点呢？只要做一个几何投影就好了。（如下图）</p><p style="text-align:center"><img class="" data-ratio="0.7984644913627639" data-type="jpeg" data-w="521" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_jpg/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6UvHBMnHmIDwx4b2CV455C3QVV6t40iciaHoicQNgmRxV1M0zLomwjWuFg/0?wx_fmt=jpeg" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">如上图所示，在三维空间中给定一个向量 u，以及由向量 v1，v2 构成的一个二维平面，向量 p 为 u 到这个平面的投影，它是 v1，v2 的线性组合:</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">利用投影的垂直性质，我们可以得到关于系数C的两个方程：</p><p style="text-align:center"><img class="" data-ratio="0.15789473684210525" data-type="png" data-w="304" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6h9KO3XmF2E9fLoatsr6qUw5C39SNw92zMcYuOd6Rz2ulhngNaTPR9w/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">令 V = [v1, v2], p = c1v1 + c2v2，将上述式子合并并转化为矩阵形式（更容易扩展到高维空间），得到：</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><img class="" data-ratio="0.2534246575342466" data-type="png" data-w="146" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6EuDYoYwC0bf8fhLq9oiaaQu2SHM5IpAulerwRSODIqWzxpVsWUcVHlw/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/> <img class="" data-ratio="0.25595238095238093" data-type="png" data-w="168" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6Q5ZVI11nibm4WabfAv84SJ3CMzOgXibBWnwuesrdib0vQY5ib941xxD8QQ/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">因此系数ｃ的表达式为：</p><p style="text-align:center"><img class="" data-ratio="0.24242424242424243" data-type="png" data-w="165" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6KWiazVSS32yxJQ0jFER0icDIf9KIicRQBJbczhp4gfoECpaST2zbqV9qw/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">有没有发现很熟悉?和式子 <img class="" data-ratio="0.2773722627737226" data-type="png" data-w="137" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_png/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6zv2k4kXZ3ZvkgOIibPY7oRe4h4JwqvsLWWqKaQRhwZHvFEXibhK6zuhQ/0?wx_fmt=png" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/>一模一样有木有！！！</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">好了，我们回到原来的例子，看看几何关系中的投影点和被投影的空间分别代表什么。</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">把图中的 u 替换成 [y1, ... , yn]T ，把 v1，v2 分别替换成 [1, ... , 1]T 和 [x1, ... , xn]T, 系数 c1 和 c2 也就是我们要求的 a0，a1。</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">所以，<span style="color: rgb(0, 0, 0);">最小二乘法的几何意义是高维空间的一个向量（由y数据决定）在低维子空间（由x数据以及多项式的次数决定）的投影。</span></p><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><br/></h2><h2 style="margin-bottom: 4px; font-size: 20px; font-weight: bold; line-height: 1.5; font-family: Verdana, Arial, Helvetica, sans-serif; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="font-size: 14px; color: rgb(255, 76, 65);">正交投影矩阵</span></h2><p><br/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);">上面提到了最小二乘的几何意义就是空间中的投影，其实投影在线性代数中也是存在其数学公式的，可以联系以下数学知识来理解最小二乘的几何意义。</p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="font-size: 14px;"><strong>张成子空间：</strong></span></p><p style="text-align:center"><img class="" data-ratio="0.3980263157894737" data-type="jpeg" data-w="608" height="197" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_jpg/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6onM2vxkHlmvY8lAHs07oqYgFZeicRWia7qhI2AoSU7l28LetNEg1ofjg/0?wx_fmt=jpeg" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;" width="495"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="font-size: 16px;"><strong>张成子空间的投影矩阵：</strong></span></p><p style="text-align:center"><img class="" data-ratio="0.65" data-type="jpeg" data-w="340" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_jpg/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6LK7Gf9FmDeEZZG4Z43Q8NibmWC6nDGsVblocHgLyuO7JsZJnJ1hWu2w/0?wx_fmt=jpeg" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;"/></p><p style="margin: 10px auto; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 25.2px; white-space: normal; widows: 1; background-color: rgb(255, 255, 255);"><span style="font-size: 14px;"><strong>最小二乘的投影解释：</strong></span><br/></p><p style="text-align:center"><img class="" data-ratio="0.4746268656716418" data-type="jpeg" data-w="670" height="272" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_jpg/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6J6RFRjyrh4ibSrPmiawFp0GIKKK3OmISw7Bich08TKwMdFpeV1JhsvqpA/0?wx_fmt=jpeg" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;" width="573"/></p><p style="text-align:center"><img class="" data-ratio="0.883495145631068" data-type="jpeg" data-w="618" height="454" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz_jpg/L2QczVR5icb2Gf3DYFwpa8kvTEW9HDbQ6rTkVFuA5nSQbd9JlFia7DibrYWS4SAGKmvzkbaYz5oScos78iaSbKIesA/0?wx_fmt=jpeg" style="border-width: 0px; border-style: initial; border-color: initial; max-width: 900px;" width="514"/></p><p style="text-align: right;"><span style="font-size: 14px;"><br/></span></p><p style="text-align: right;"><br/></p><p style="max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16px; line-height: 25.6px; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">------用数据解决不可能------</span></strong></p><p style="max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16px; line-height: 25.6px; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><img data-ratio="1" data-s="300,640" data-type="jpeg" data-w="180" src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/L2QczVR5icb1h3dkoM13y0n1qJSR05tURiaj43VqmjRHiaUke6POxicrLJAjtiaRQ9kJ3uH0YZBFb9iajjNytH9wsYIA/640?wx_fmt=jpeg" style="box-sizing: border-box !important; word-wrap: break-word !important; visibility: visible !important; width: auto !important;" width="auto"/><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"/></p><p style="max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16px; line-height: 25.6px; text-align: center; background-color: rgb(255, 255, 255); box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">听说，关注这个号的人运气都不会太差噢</span></p><p><br/></p>
+</div>
+<div class="ct_mpda_wrp" id="js_sponsor_ad_area" style="display:none;">
+</div>
+<div class="rich_media_tool" id="js_toobar3">
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var cpro_id="u2312677";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"700",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"0",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<div style="padding:5px 5px 0px 5px;border-bottom:1px dotted #C8D8F2; height:30px;margin:5px 0px 0px 0px;border-top:1px dotted #C8D8F2;">
+<div class="bdsharebuttonbox" data-tag="share_bottom" style="font-size:13px; line-height:16px; float:right;"><a class="bds_weixin" data-cmd="weixin" href="#" title="分享到微信">微信</a><a class="bds_qzone" data-cmd="qzone" href="#" title="分享到QQ空间">QQ空间</a><a class="bds_tsina" data-cmd="tsina" href="#" title="分享到新浪微博">新浪微博</a><a class="bds_tqq" data-cmd="tqq" href="#" title="分享到腾讯微博">腾讯微博</a><a class="bds_renren" data-cmd="renren" href="#" title="分享到人人网">人人</a><a class="bds_twi" data-cmd="twi" href="#" title="分享到Twitter">Twitter</a><a class="bds_douban" data-cmd="douban" href="#" title="分享到豆瓣网">豆瓣</a><a class="bds_tieba" data-cmd="tieba" href="#" title="分享到百度贴吧">百度贴吧</a><a class="bds_more" data-cmd="more" href="#"></a></div>
+<div style="float:right;line-height:28px; color:#6c6c6c; font-size:12px;padding-right:15px;">觉得不错，分享给更多人看到</div>
+</div>
+<div class="RecentPosts">
+<div><a href="/account/gh_4e8f3d1e412d" style="color: #19558d;">数据与算法之美</a> 最新文章:</div>
+<div class="feed_body">
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-19</span>   
+<a class="question_link" href="/n/1347990951545">一种数据简化的技术——因子分析</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-18</span>   
+<a class="question_link" href="/n/1340802651536">平凡而又神奇的贝叶斯方法</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-17</span>   
+<a class="question_link" href="/n/1329122451667">一段C语言和汇编的对应分析，揭示函数调用的本质</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-16</span>   
+<a class="question_link" href="/n/1318670851441">学会这个算法 《Dota》轻松虐菜</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-15</span>   
+<a class="question_link" href="/n/1305927651573">机器学习中的数学：模型组合之 Boosting 与 Gradient Boosting</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-15</span>   
+<a class="question_link" href="/n/1305927751551">新年快来了，推荐几个新的数学公众号</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-14</span>   
+<a class="question_link" href="/n/1296720451439">见证常识如何颠覆传统学科？</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-13</span>   
+<a class="question_link" href="/n/1288088151651">奇异值分解(SVD) ——线性变换几何意义</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-12</span>   
+<a class="question_link" href="/n/1284640551245">漫谈高数——泰勒级数的物理意义</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<span class="timestamp" style="color: #999">2016-12-11</span>   
+<a class="question_link" href="/n/1279820951930">梯度下降优化算法综述</a>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var cpro_id="u2326060";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"700",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"0",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<div class="RecentPosts">
+<div><a href="/account/gh_4e8f3d1e412d" style="color: #19558d;">数据与算法之美</a> 热门文章:</div>
+<div class="feed_body">
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1340802651536">平凡而又神奇的贝叶斯方法</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 1768/19</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1251623251379">当你在浏览器中输入Google.com并且按下回车之后发生了什么？</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 1169/10</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/369345751927">为什么不能除以零？</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 1074/10</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1318670851441">学会这个算法 《Dota》轻松虐菜</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 1026/15</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1284640551245">漫谈高数——泰勒级数的物理意义</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 973/16</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1119757751133">领导，请尊重我的专业！</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 767/14</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1253759451329">趣文：追MM的各种算法</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 732/14</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/358171751321">数学家杀人事件</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 708/9</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1130717351667">程序员表白后，妹子回复一串五层加密的密码 ···</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 517/13</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w6" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/569920351054">禅师体 | 理科生用创意毁灭世界，爆笑！</a>
+   <span class="timestamp" style="color: #999">阅读/点赞 : 479/10</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var cpro_id="u2721229";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"700",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"0",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" data-ad-client="ca-pub-3728791995114007" data-ad-slot="6875744170" style="display:inline-block;width:700px;height:250px"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="side e_col side_col w2_5" style="margin-top: 10px;width: 300px;">
+<div class="row section section_top" style="margin-bottom: 5px">
+<a class="download-ios" href="https://itunes.apple.com/cn/app/chuan-song-men-wei-xin-gong/id969898148?ls=1&amp;mt=8" style="padding: 6px" target="_blank">传送门 for iOS 下载</a>
+</div>
+<div class="section">
+<div>
+<h3>数据与算法之美 微信二维码</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<img alt="数据与算法之美 微信二维码" height="210px" src="http://q.chuansong.me/gh_4e8f3d1e412d.jpg" width="210px">
+</img></div>
+</span>
+</div>
+</div>
+</div>
+<div class="section share_question ">
+<h3>分享这篇文章</h3>
+<div class="row share_icons_row">
+<div class="bdsharebuttonbox" data-tag="share_right"><a class="bds_weixin" data-cmd="weixin" href="#" title="分享到微信"></a><a class="bds_qzone" data-cmd="qzone" href="#" title="分享到QQ空间"></a><a class="bds_tsina" data-cmd="tsina" href="#" title="分享到新浪微博"></a><a class="bds_tqq" data-cmd="tqq" href="#" title="分享到腾讯微博"></a><a class="bds_douban" data-cmd="douban" href="#" title="分享到豆瓣网"></a><a class="bds_tieba" data-cmd="tieba" href="#" title="分享百度贴吧"></a><a class="bds_twi" data-cmd="twi" href="#" title="分享Twitter"></a><a class="bds_more" data-cmd="more" href="#"></a></div>
+</div>
+</div>
+<div class="section">
+<h3>数据</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="StatsRow">
+<span>阅读</span>
+<span><strong>828</strong></span>
+</div>
+<div class="StatsRow">
+<span>点赞</span>
+<span><strong>7</strong></span>
+</div>
+<div class="StatsRow">
+<span>更新</span>
+<span><strong>12月13日 17:00</strong></span>
+</div>
+</span>
+</div>
+</div>
+<div class="section">
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" data-ad-client="ca-pub-3728791995114007" data-ad-slot="5808773776" style="display:inline-block;width:300px;height:250px"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="section">
+<div>
+<h3>数据与算法之美 最新文章</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<div class="feed_body">
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1347990951545">一种数据简化的技术——因子分析</a>
+ <span class="timestamp" style="color: #999">2016-12-19</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1340802651536">平凡而又神奇的贝叶斯方法</a>
+ <span class="timestamp" style="color: #999">2016-12-18</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1329122451667">一段C语言和汇编的对应分析，揭示函数调用的本质</a>
+ <span class="timestamp" style="color: #999">2016-12-17</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1318670851441">学会这个算法 《Dota》轻松虐菜</a>
+ <span class="timestamp" style="color: #999">2016-12-16</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1305927651573">机器学习中的数学：模型组合之 Boosting 与 Gradient Boosting</a>
+ <span class="timestamp" style="color: #999">2016-12-15</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1305927751551">新年快来了，推荐几个新的数学公众号</a>
+ <span class="timestamp" style="color: #999">2016-12-15</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1296720451439">见证常识如何颠覆传统学科？</a>
+ <span class="timestamp" style="color: #999">2016-12-14</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1288088151651">奇异值分解(SVD) ——线性变换几何意义</a>
+ <span class="timestamp" style="color: #999">2016-12-13</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1284640551245">漫谈高数——泰勒级数的物理意义</a>
+ <span class="timestamp" style="color: #999">2016-12-12</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1279820951930">梯度下降优化算法综述</a>
+ <span class="timestamp" style="color: #999">2016-12-11</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</span>
+</div>
+</div>
+</div>
+<div class="section">
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" data-ad-client="ca-pub-3728791995114007" data-ad-slot="4579059379" style="display:inline-block;width:300px;height:250px"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="section">
+<div>
+<h3>数据与算法之美 热门文章</h3>
+<div class="inline_editor_content">
+<span class="inline_editor_value">
+<div class="inline">
+<div class="feed_body">
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1340802651536">平凡而又神奇的贝叶斯方法</a>
+ <span class="timestamp" style="color: #999">1768阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1251623251379">当你在浏览器中输入Google.com并且按下回车之后发生了什么？</a>
+ <span class="timestamp" style="color: #999">1169阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/369345751927">为什么不能除以零？</a>
+ <span class="timestamp" style="color: #999">1074阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1318670851441">学会这个算法 《Dota》轻松虐菜</a>
+ <span class="timestamp" style="color: #999">1026阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1284640551245">漫谈高数——泰勒级数的物理意义</a>
+ <span class="timestamp" style="color: #999">973阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1119757751133">领导，请尊重我的专业！</a>
+ <span class="timestamp" style="color: #999">767阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1253759451329">趣文：追MM的各种算法</a>
+ <span class="timestamp" style="color: #999">732阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/358171751321">数学家杀人事件</a>
+ <span class="timestamp" style="color: #999">708阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/1130717351667">程序员表白后，妹子回复一串五层加密的密码 ···</a>
+ <span class="timestamp" style="color: #999">517阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pagedlist_item" tabindex="-1">
+<div class="feed_item" style="border-bottom: none;">
+<div class="e_col p1 w2_5" style="padding: 6px 0;">
+<div class="row">
+<div>
+<div class="feed_item_question">
+<h2>
+<span>
+<a class="question_link" href="/n/569920351054">禅师体 | 理科生用创意毁灭世界，爆笑！</a>
+ <span class="timestamp" style="color: #999">479阅读</span>
+</span>
+</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</span>
+</div>
+</div>
+</div>
+<div class="section">
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" data-ad-client="ca-pub-3728791995114007" data-ad-format="auto" data-ad-slot="9009258978" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
+</div>
+</div>
+</body></html>
+<div>
+<div class=" footer wrapper">
+<div class="contents">
+<div class="footer_nav row">
+<div class="e_col footer_links w8_5" style="margin-left: -70px">
+<ul class="nav_list">
+<li class="about"><a href="/about">关于</a></li>
+<li><span class="bullet"> • </span></li>
+<li class="about"><a href="/submit/account">提交</a></li>
+<li><span class="bullet"> • </span></li>
+<li class="about"><a href="/app">App</a></li>
+<li class="about" style="float: right"><a href="http://werank.cn" target="_blank">热榜</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-40292976-1']);
+_gaq.push(['_setDomainName', '.chuansong.me']);
+_gaq.push(['_setAllowLinker', true]);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script');
+ga.type = 'text/javascript';
+ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script language="javascript" src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.4.2.min.js"></script>
+<script language="javascript" src="/static/js/common.js"></script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2919864620"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":[{"tag":"share_bottom","bdSize":16},{"tag":"share_right","bdSize":24,"bdStyle":"2"}]};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+var hm = document.createElement("script");
+hm.src = "//hm.baidu.com/hm.js?9d416cb1bdca85038c8810fc14eeee57";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
